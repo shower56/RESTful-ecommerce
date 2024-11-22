@@ -37,8 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+
 ]
+
+
+INSTALLED_APPS += [
+    'corsheaders',
+    'django_extensions'
+]
+
+INSTALLED_APPS += [
+    'apps.products',
+    'apps.categories',
+    'apps.coupons',
+]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
