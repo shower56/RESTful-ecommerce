@@ -40,19 +40,20 @@ INSTALLED_APPS = [
 
 ]
 
-
-INSTALLED_APPS += [
+ECOMMERCE_PACKAGES = [
     'corsheaders',
-    'django_extensions'
+    'django_extensions',
+    'drf_spectacular'
 ]
 
-INSTALLED_APPS += [
+ECOMMERCE_APPS = [
     'apps.products',
     'apps.categories',
     'apps.coupons',
 ]
 
-
+INSTALLED_APPS += ECOMMERCE_PACKAGES
+INSTALLED_APPS += ECOMMERCE_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,8 +92,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecommerce',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': 3305,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci;',
+        },
+        'CONN_MAX_AGE': 600,
     }
 }
 
@@ -119,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -134,7 +144,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 ##CORS
 CORS_ORIGIN_ALLOW_ALL=True   #원하는 IP를 입력하면 해당 IP랑만 소통한다.
@@ -162,3 +171,20 @@ CORS_ALLOW_HEADERS = (
 )
 
 APPEND_SLASH = False
+
+# rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# spectacular settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'RESTful ecommerce APIs Service',
+    'DESCRIPTION': '이커머스 API 상세 문서입니다.',
+    'VERSION': '0.0.1',
+    'CONTACT': {
+        'name': 'Hyunchul Yoon',
+        'email': 'shower4545@gmail.com',
+        'url': 'https://www.github.com/shower56',
+    }
+}
