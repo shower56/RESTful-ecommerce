@@ -3,3 +3,4 @@ djangorestframework==3.12.1
 django-cors-headers==3.5.0
 django-extensions==3.0.9
 mysqlclient==2.0.1
+faker-commerce==1.0.4
