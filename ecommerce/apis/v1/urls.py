@@ -17,6 +17,6 @@ urlpatterns = router.urls
 
 # 스퀘거 API 문서 페이지는 개발환경에서만 load 가능하도록 environment 별 관리가 필요하겠습니다.
 urlpatterns += [
-    path("^schema/", SpectacularJSONAPIView.as_view(), name="schema"),
+    path("schema/", SpectacularJSONAPIView.as_view(), name="schema"),
     path("doc/", SpectacularSwaggerView.as_view(url_name='api:schema'), name='swagger-ui'),
 ]
