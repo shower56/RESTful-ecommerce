@@ -12,6 +12,24 @@ from core.viewsets.pagination import CustomPagination
 
 @extend_schema_view(list=PRODUCT_LIST, retrieve=PRODUCT_RETRIEVE)
 class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, CustomViewSet):
+    """
+    요구사항
+
+    - 상품 리스트 및 카테고리 진열
+    사용자는 전체 상품 리스트를 조회할 수 있어야 하며 카테고리별로 상품을 필터링할 수 있어야 합니다.
+    각 상품은 다음과 같은 정보를 포함합니다:상품 이름, 설명, 가격, 카테고리, 할인율(있을 경우), 쿠폰 적용 가능 여부
+
+    - 상품 상세 정보
+    사용자는 특정 상품의 상세 정보를 조회할 수 있습니다.
+    상세 페이지에서는 할인율을 적용한 할인 가격을 함께 반환해야 합니다.
+    (예: 원래 가격과 할인 가격을 모두 표시)상품에 쿠폰이 적용된 경우 쿠폰 할인율을 적용한 최종 가격도 표시해야 합니다.
+
+    - 쿠폰 적용
+    상품에 적용할 수 있는 쿠폰 목록을 제공하며 쿠폰이 적용된 상품은 할인이 추가되어 최종 가격을 계산해야 합니다.
+    비즈니스 로직 :
+        - 할인율은 상품별로 다를 수 있습니다.
+        - 쿠폰이 적용되면 상품의 할인 가격에 추가로 쿠폰 할인이 적용되어 최종 가격이 결정됩니다.
+    """
 
     # 사품 기본 쿼리셋 세팅
     queryset = Product.objects.all()
@@ -27,7 +45,6 @@ class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, CustomVie
     def get_serializer_class(self):
         """
         API의 action에 따라 필요한 serializer class를 할당합니다.
-        :return:
         """
         serializer_class = {
             "list": ProductListSerializer,
