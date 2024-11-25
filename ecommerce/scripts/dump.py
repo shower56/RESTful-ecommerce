@@ -74,4 +74,3 @@ class Dump:
 def run():
     Dump().dump()
     print("DONE")
-

@@ -1,0 +1,6 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE="config.settings"
+minversion = "6.0"
+pythonpath = "."
+addopts = "-ra --ignore=dbt_packages --reuse-db --nomigrations"
+python_files = "tests/*/test_*.py"
