@@ -1,12 +1,15 @@
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins
 from rest_framework.settings import api_settings
 
 from apis.v1.categories.serializers import CategorySerializer
+from apis.v1.categories.swaggers import CATEGORY_LIST
 from apps.categories.models import Category
 from core.viewsets.base import CustomViewSet
 from core.viewsets.pagination import CustomPagination
 
 
+@extend_schema_view(list=CATEGORY_LIST)
 class CategoryViewSet(mixins.ListModelMixin, CustomViewSet):
 
     # 카테고리 기본 쿼리셋 세팅

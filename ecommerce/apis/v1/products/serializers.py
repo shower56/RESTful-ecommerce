@@ -12,6 +12,7 @@ class ProductListSerializer(CustomModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'description', 'price', 'category', 'discount_rate', 'coupon_applicable')
+        no_update_fields = ('id',)
 
 
 class ProductRetrieveSerializer(ProductListSerializer):
@@ -21,6 +22,7 @@ class ProductRetrieveSerializer(ProductListSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'description', 'price', 'discounted_price', 'category', 'discount_rate', 'coupon_applicable', 'coupon_applied_prices')
+        no_update_fields = ('id',)
 
     def get_discounted_price(self, obj):
         price = obj.price

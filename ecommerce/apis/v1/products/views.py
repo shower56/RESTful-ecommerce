@@ -1,13 +1,16 @@
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins
 from rest_framework.settings import api_settings
 
 from apis.v1.products.filter import ProductFilterBackend
 from apis.v1.products.serializers import ProductListSerializer, ProductRetrieveSerializer
+from apis.v1.products.swaggers import PRODUCT_LIST, PRODUCT_RETRIEVE
 from apps.products.models import Product
 from core.viewsets.base import CustomViewSet
 from core.viewsets.pagination import CustomPagination
 
 
+@extend_schema_view(list=PRODUCT_LIST, retrieve=PRODUCT_RETRIEVE)
 class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, CustomViewSet):
 
     # 사품 기본 쿼리셋 세팅
@@ -22,6 +25,10 @@ class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, CustomVie
     filter_backends = [ProductFilterBackend]
 
     def get_serializer_class(self):
+        """
+        API의 action에 따라 필요한 serializer class를 할당합니다.
+        :return:
+        """
         serializer_class = {
             "list": ProductListSerializer,
             "retrieve": ProductRetrieveSerializer,

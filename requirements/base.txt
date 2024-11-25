@@ -10,3 +10,4 @@ pytest-django==4.9.0
 pytest-forked==1.6.0
 pytest-xdist==3.6.1
 factory-boy==3.2.1
+drf-spectacular==0.22.1

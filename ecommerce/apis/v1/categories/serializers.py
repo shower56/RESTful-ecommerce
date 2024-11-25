@@ -7,3 +7,4 @@ class CategorySerializer(CustomModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name')
+        no_update_fields = ()
